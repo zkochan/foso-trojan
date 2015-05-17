@@ -1,8 +1,8 @@
 {
   "name": "foso-trojan",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A trojan to inject links to the Foso static server files.",
-  "main": "index.js",
+  "main": "foso.trojan.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

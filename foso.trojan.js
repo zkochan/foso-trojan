@@ -92,22 +92,22 @@
       injectScript(liveReloadUrl);
     }
 
-    return {
-      isOn: isOn,
-      on: function () {
-        cookie.set(cookieName, on);        
+    var result = function (name) {
+      scriptName = name;
+      if (isOn()) {
         addScript();
-      },
-      off: function () {
-        cookie.remove(cookieName);
-      },
-      setScriptName: function (name) {
-        scriptName = name;
-        if (isOn()) {
-          addScript();
-        }
       }
     };
+    result.isOn = isOn;
+    result.on = function () {
+      cookie.set(cookieName, on);        
+      addScript();
+    };
+    result.off = function () {
+      cookie.remove(cookieName);
+    };
+    
+    return result;
   })();
 
   if (typeof module === 'object' && typeof module.exports === 'object') {
