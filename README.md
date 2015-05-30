@@ -13,6 +13,8 @@ Pass the name of the script that has to be added to each page type accordingly.
 foso('homepage');
 ```
 
+**NOTE:** If not specified, the js file called index.js will be added to the page.
+
 ## Usage
 
 Open the console in the browser and execute `foso.on()` in order to attach the Foso scripts to the page.
