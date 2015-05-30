@@ -66,7 +66,7 @@
   };
 
   var foso = (function () {
-    var scriptName;
+    var scriptName = 'index';
     var cookieName = '_foso';
     var on = 'on';
 
