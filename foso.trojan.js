@@ -66,7 +66,7 @@
   };
 
   var foso = (function () {
-    var scriptName = 'index';
+    var scriptName;
     var cookieName = '_foso';
     var on = 'on';
 
@@ -93,7 +93,7 @@
     }
 
     var result = function (name) {
-      scriptName = name;
+      scriptName = name || 'index';
       if (isOn()) {
         addScript();
       }
