@@ -116,8 +116,8 @@
       secureHost = activeOpts.secureHost || host;
 
       if (isTest) {
-        host = host || 'localhost:1770/';
-        secureHost = secureHost || 'localhost:1769/';
+        host = host || 'localhost:1769/';
+        secureHost = secureHost || 'localhost:1770/';
       }
       
       addScript();
