@@ -12,29 +12,59 @@ var cookie = {
 }
 
 describe('Foso Trojan', function() {
-  describe('Normal mode with one project', function() {
-    it('Adds non-secure link', function(done) {
+  beforeEach(function() {
+    cookieValue = null;
+  });
+
+    it('Adds link if not already in the DOM', function(done) {
       var doc = {
         write: function(html) {
           expect(html).toBe('<script id="foso-trojan-foo" src="http://domain.com/index.js"></script>');
           done();
         },
         getElementById: _.noop,
-        createElement: _.bind(window.document.createElement, window.document),
-        location: {
-          protocol: 'http:'
-        }
+        createElement: _.bind(window.document.createElement, window.document)
       };
       var foso = new FosoTrojan(doc, cookie);
       foso({
-        foo: {
-          normal: {
-            host: 'domain.com'
-          }
+        foo: function(mode) {
+          return 'http://domain.com/index.js';
         }
       });
     });
 
+  it('Returns correct mode name if is present in the cookies', function(done) {
+    cookieValue = 'test';
+      var doc = {
+        write: _.noop,
+        getElementById: _.noop,
+        createElement: _.bind(window.document.createElement, window.document)
+      };
+      var foso = new FosoTrojan(doc, cookie);
+      foso({
+        foo: function(mode) {
+          expect(mode).toBe('test');
+          done();
+        }
+      });
+    });
+
+  it('Returns default mode name if not present in the cookies', function(done) {
+    cookieValue = null;
+      var doc = {
+        write: _.noop,
+        getElementById: _.noop,
+        createElement: _.bind(window.document.createElement, window.document)
+      };
+      var foso = new FosoTrojan(doc, cookie);
+      foso({
+        foo: function(mode) {
+          expect(mode).toBe('default');
+          done();
+        }
+      });
+    });
+/*
     it('Adds secure link when secureHost not specified', function(done) {
       var doc = {
         write: function(html) {
@@ -102,5 +132,5 @@ describe('Foso Trojan', function() {
         }
       });
     });
-  });
+  });*/
 });
