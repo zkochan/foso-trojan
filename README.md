@@ -2,6 +2,10 @@
 
 A JavaScript snippet aimed to add the [Foso](https://github.com/zkochan/foso) scripts to the webpage.
 
+[![Dependency Status](https://david-dm.org/zkochan/foso-trojan/status.svg?style=flat)](https://david-dm.org/zkochan/foso-trojan)
+[![Build Status](https://travis-ci.org/zkochan/foso-trojan.svg)](https://travis-ci.org/zkochan/foso-trojan)
+[![npm version](https://badge.fury.io/js/foso-trojan.svg)](http://badge.fury.io/js/foso-trojan)
+
 ## Install
 
 Add the code from `foso.trojan.js` to all the pages of the website.
