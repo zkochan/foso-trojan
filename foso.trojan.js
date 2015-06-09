@@ -65,50 +65,75 @@
     }
   };
 
-  var foso = (function () {
-    var scriptName;
+  var foso = (function (d) {
+    var scriptName, host, secureHost;
     var cookieName = '_foso';
     var on = 'on';
 
-    function isOn() {
+    function isOnTest() {
       return cookie.get(cookieName) === on;
     }
 
-    function injectScript(url) {
-      var script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = url;
-      document.getElementsByTagName('head')[0].appendChild(script);
+    function injectScript(url, scriptId) {
+      if (d.getElementById(scriptId)) {
+        return;
+      }
+      // WARNING: the closing script tag is written as <\u002Fscript>
+      // because otherwise if the code is inside the HTML, it will
+      // close the script tag in which the JavaScript is. Could be 
+      // written also as '<' + '/script>'. However, the later version
+      // might be transformed during minification.
+      document.write('<script id="' + scriptId + '" src="' +
+                     url + '"><\u002Fscript>');
     }
 
     function addScript() {
-      var isSecure = window.document.location.protocol === 'https:';
-      var url = (isSecure ?
-          'https://localhost:1770/' : 'http://localhost:1769/') +
+      var isSecure = d.location.protocol === 'https:';
+      var url = d.location.protocol + '//' +
+        (isSecure ? secureHost : host) +
         scriptName + '.js';
-      injectScript(url);
+      injectScript(url, 'foso-trojan');
 
-      var liveReloadUrl = 'https://localhost:2769/livereload.js';
-      injectScript(liveReloadUrl);
+      if (isOnTest()) {
+        var liveReloadUrl = 'https://localhost:2769/livereload.js';
+        injectScript(liveReloadUrl, 'foso-livereload');
+      }
     }
 
-    var result = function (name) {
-      scriptName = name || 'index';
-      if (isOn()) {
-        addScript();
+    var result = function (opts) {
+      opts = opts || {};
+
+      var isTest = isOnTest();
+      if (!isTest && !opts.normal) {
+        return;
       }
-    };
-    result.isOn = isOn;
-    result.on = function () {
-      cookie.set(cookieName, on);        
+      
+      var activeOpts = isTest ? opts.test : opts.normal;
+      activeOpts = activeOpts || {};
+
+      scriptName = activeOpts.main || 'index';
+      host = activeOpts.host;
+      secureHost = activeOpts.secureHost || host;
+
+      if (isTest) {
+        host = host || 'localhost:1770/';
+        secureHost = secureHost || 'localhost:1769/';
+      }
+      
       addScript();
     };
-    result.off = function () {
+    result.isOnTest = isOnTest;
+    result.test = function () {
+      cookie.set(cookieName, on);        
+      d.location.reload();
+    };
+    result.testOff = function () {
       cookie.remove(cookieName);
+      d.location.reload();
     };
     
     return result;
-  })();
+  })(document);
 
   if (typeof module === 'object' && typeof module.exports === 'object') {
     module.exports = foso;
