@@ -4,7 +4,7 @@
   "description": "A trojan to inject links to the Foso static server files.",
   "main": "./lib",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,14 @@
   "homepage": "https://github.com/zkochan/foso-trojan",
   "devDependencies": {
     "gulp": "^3.9.0",
-    "gulp-uglify": "^1.2.0"
+    "gulp-karma": "0.0.4",
+    "gulp-uglify": "^1.2.0",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.12.36",
+    "karma-browserify": "^4.2.1",
+    "karma-jasmine": "^0.3.5",
+    "karma-phantomjs-launcher": "^0.2.0",
+    "lodash": "^3.9.3",
+    "phantomjs": "^1.9.17"
   }
 }
