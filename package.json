@@ -2,7 +2,7 @@
   "name": "foso-trojan",
   "version": "0.1.1",
   "description": "A trojan to inject links to the Foso static server files.",
-  "main": "foso.trojan.js",
+  "main": "./lib",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/zkochan/foso-trojan/issues"
   },
-  "homepage": "https://github.com/zkochan/foso-trojan"
+  "homepage": "https://github.com/zkochan/foso-trojan",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-uglify": "^1.2.0"
+  }
 }
