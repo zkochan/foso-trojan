@@ -63,4 +63,23 @@ describe('Kibe', function() {
       }
     });
   });
+
+  it('Sets mode and reloads page', function(done) {
+    var doc = {
+      location: {
+        reload: function() {
+          done();
+        }
+      },
+      write: _.noop,
+      getElementById: _.noop,
+      createElement: _.bind(window.document.createElement, window.document)
+    };
+    var kibe = new Kibe(doc, _.merge(cookie, {
+      set: function(key, value) {
+        expect(value).toBe('foo');
+      }
+    }));
+    kibe('foo');
+  });
 });
