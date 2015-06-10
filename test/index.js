@@ -1,6 +1,6 @@
 'use strict';
 
-var FosoTrojan = require('../lib').Foso;
+var FosoTrojan = require('../lib').Kibe;
 var _ = require('lodash');
 var cookieValue;
 var cookie = {
@@ -18,7 +18,7 @@ describe('Foso Trojan', function() {
   it('Adds link if not already in the DOM', function(done) {
     var doc = {
       write: function(html) {
-        expect(html).toBe('<script id="foso-trojan-foo" src="http://domain.com/index.js"></script>');
+        expect(html).toBe('<script id="kibe-foo" src="http://domain.com/index.js"></script>');
         done();
       },
       getElementById: _.noop,

@@ -1,24 +1,24 @@
 {
-  "name": "foso-trojan",
-  "version": "0.2.0",
-  "description": "A trojan to inject links to the Foso static server files.",
+  "name": "kibe",
+  "version": "0.0.1",
+  "description": "A JavaScript snippet aimed to switch JavaScript references on the page for easier development/debugging/testing JavaScript files in different environments.",
   "main": "./lib",
   "scripts": {
     "test": "gulp test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zkochan/foso-trojan.git"
+    "url": "https://github.com/zkochan/kibe.git"
   },
   "keywords": [
-    "foso"
+    "kibe"
   ],
   "author": "Zoltan Kochan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zkochan/foso-trojan/issues"
+    "url": "https://github.com/zkochan/kibe/issues"
   },
-  "homepage": "https://github.com/zkochan/foso-trojan",
+  "homepage": "https://github.com/zkochan/kibe",
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-karma": "0.0.4",
