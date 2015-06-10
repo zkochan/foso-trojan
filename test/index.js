@@ -1,6 +1,6 @@
 'use strict';
 
-var FosoTrojan = require('../lib').Kibe;
+var Kibe = require('../lib').Kibe;
 var _ = require('lodash');
 var cookieValue;
 var cookie = {
@@ -10,7 +10,7 @@ var cookie = {
   set: _.noop
 }
 
-describe('Foso Trojan', function() {
+describe('Kibe', function() {
   beforeEach(function() {
     cookieValue = null;
   });
@@ -24,8 +24,8 @@ describe('Foso Trojan', function() {
       getElementById: _.noop,
       createElement: _.bind(window.document.createElement, window.document)
     };
-    var foso = new FosoTrojan(doc, cookie);
-    foso({
+    var kibe = new Kibe(doc, cookie);
+    kibe({
       foo: function(mode) {
         return 'http://domain.com/index.js';
       }
@@ -39,8 +39,8 @@ describe('Foso Trojan', function() {
       getElementById: _.noop,
       createElement: _.bind(window.document.createElement, window.document)
     };
-    var foso = new FosoTrojan(doc, cookie);
-    foso({
+    var kibe = new Kibe(doc, cookie);
+    kibe({
       foo: function(mode) {
         expect(mode).toBe('test');
         done();
@@ -55,8 +55,8 @@ describe('Foso Trojan', function() {
       getElementById: _.noop,
       createElement: _.bind(window.document.createElement, window.document)
     };
-    var foso = new FosoTrojan(doc, cookie);
-    foso({
+    var kibe = new Kibe(doc, cookie);
+    kibe({
       foo: function(mode) {
         expect(mode).toBe('default');
         done();
