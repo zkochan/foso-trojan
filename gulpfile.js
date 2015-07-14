@@ -1,21 +1,25 @@
 'use strict';
 
 var gulp = require('gulp');
-var uglify = require('gulp-uglify');
-var karma = require('gulp-karma');
+var foso = require('foso');
+var js = require('fosify-js');
+var test = require('fosify-test');
 
-gulp.task('default', ['compress']);
+gulp.task('default', ['build']);
 
-gulp.task('compress', function() {
-  return gulp.src('lib/*.js')
-    .pipe(uglify())
-    .pipe(gulp.dest('build'));
+gulp.task('build', function() {
+  foso
+    .please({
+      src: './lib',
+      minify: true
+    })
+    .fosify(js)
+    .now();
 });
 
-gulp.task('test', function () {
-  gulp.src('./test/**/*')
-    .pipe(karma({
-      configFile: './karma.conf.js',
-      action: 'run'
-    }));
+gulp.task('test', function() {
+  foso
+    .please()
+    .fosify(test)
+    .now();
 });

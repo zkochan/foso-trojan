@@ -8,7 +8,7 @@ var cookie = {
     return cookieValue;
   },
   set: _.noop
-}
+};
 
 describe('Kibe', function() {
   beforeEach(function() {
@@ -18,7 +18,7 @@ describe('Kibe', function() {
   it('Adds link if not already in the DOM', function(done) {
     var doc = {
       write: function(html) {
-        expect(html).toBe('<script id="kibe-foo" src="http://domain.com/index.js"></script>');
+        expect(html).to.equal('<script id="kibe-foo" src="http://domain.com/index.js"></script>');
         done();
       },
       getElementById: _.noop,
@@ -42,7 +42,7 @@ describe('Kibe', function() {
     var kibe = new Kibe(doc, cookie);
     kibe({
       foo: function(mode) {
-        expect(mode).toBe('test');
+        expect(mode).to.equal('test');
         done();
       }
     });
@@ -58,7 +58,7 @@ describe('Kibe', function() {
     var kibe = new Kibe(doc, cookie);
     kibe({
       foo: function(mode) {
-        expect(mode).toBe('default');
+        expect(mode).to.equal('default');
         done();
       }
     });
@@ -77,7 +77,7 @@ describe('Kibe', function() {
     };
     var kibe = new Kibe(doc, _.merge(cookie, {
       set: function(key, value) {
-        expect(value).toBe('foo');
+        expect(value).to.equal('foo');
       }
     }));
     kibe('foo');
