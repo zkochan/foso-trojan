@@ -1,6 +1,6 @@
 'use strict';
 
-var Kibe = require('../lib').Kibe;
+var createKibe = require('../lib').createKibe;
 var _ = require('lodash');
 var cookieValue;
 var cookie = {
@@ -24,7 +24,7 @@ describe('Kibe', function() {
       getElementById: _.noop,
       createElement: _.bind(window.document.createElement, window.document)
     };
-    var kibe = new Kibe(doc, cookie);
+    var kibe = createKibe(doc, cookie);
     kibe({
       foo: function(mode) {
         return 'http://domain.com/index.js';
@@ -39,7 +39,7 @@ describe('Kibe', function() {
       getElementById: _.noop,
       createElement: _.bind(window.document.createElement, window.document)
     };
-    var kibe = new Kibe(doc, cookie);
+    var kibe = createKibe(doc, cookie);
     kibe({
       foo: function(mode) {
         expect(mode).to.equal('test');
@@ -55,7 +55,7 @@ describe('Kibe', function() {
       getElementById: _.noop,
       createElement: _.bind(window.document.createElement, window.document)
     };
-    var kibe = new Kibe(doc, cookie);
+    var kibe = createKibe(doc, cookie);
     kibe({
       foo: function(mode) {
         expect(mode).to.equal('default');
@@ -75,7 +75,7 @@ describe('Kibe', function() {
       getElementById: _.noop,
       createElement: _.bind(window.document.createElement, window.document)
     };
-    var kibe = new Kibe(doc, _.merge(cookie, {
+    var kibe = createKibe(doc, _.merge(cookie, {
       set: function(key, value) {
         expect(value).to.equal('foo');
       }
