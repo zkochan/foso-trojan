@@ -5,81 +5,49 @@ var chai = require('chai');
 var sinonChai = require('sinon-chai');
 var expect = chai.expect;
 chai.use(sinonChai);
-var createKibe = require('../lib').createKibe;
-var _ = require('lodash');
-var cookieValue;
-var cookie = {
-  get: function() {
-    return cookieValue;
-  },
-  set: _.noop
-};
+var kibe = require('../lib');
+var cookie = require('easy-cookie');
+var COOKIE_KEY = '_kibe';
 
 describe('Kibe', function() {
   beforeEach(function() {
-    cookieValue = null;
+    cookie.remove(COOKIE_KEY);
   });
 
   it('Adds link if not already in the DOM', function() {
-    var spy = sinon.spy();
-    var doc = {
-      write: spy,
-      getElementById: _.noop,
-      createElement: _.bind(window.document.createElement, window.document)
-    };
-    var kibe = createKibe(doc, cookie);
     kibe({
       def: kibe.js('foo', 'http://domain.com/index.js')
     });
-    expect(spy).to.have.been.calledWithExactly('<script id="foo" src="http://domain.com/index.js"></script>');
+
+    var el = document.getElementById('foo');
+    expect(el.tagName).to.eq('SCRIPT');
+    expect(el.src).to.eq('http://domain.com/index.js');
+    el.parentNode.removeChild(el);
   });
 
   it('executes correct mode scripts if mode is present in the cookies', function() {
-    cookieValue = 'test';
+    cookie.set(COOKIE_KEY, 'test');
     var spy = sinon.spy();
-    var doc = {
-      write: _.noop,
-      getElementById: _.noop,
-      createElement: _.bind(window.document.createElement, window.document)
-    };
-    var kibe = createKibe(doc, cookie);
     kibe({
       test: [spy]
     });
+    expect(spy).to.have.been.calledOnce;
     expect(spy).to.have.been.calledWithExactly('test');
   });
 
   it('executes default mode scripts if mode not present in the cookies', function() {
-    cookieValue = null;
     var spy = sinon.spy();
-    var doc = {
-      write: _.noop,
-      getElementById: _.noop,
-      createElement: _.bind(window.document.createElement, window.document)
-    };
-    var kibe = createKibe(doc, cookie);
     kibe({
       def: [spy]
     });
     expect(spy).to.have.been.calledWithExactly('def');
   });
 
-  it('Sets mode and reloads page', function() {
-    var setSpy = sinon.spy();
+  it('sets mode and reloads page', function() {
     var reloadSpy = sinon.spy();
-    var doc = {
-      location: {
-        reload: reloadSpy
-      },
-      write: _.noop,
-      getElementById: _.noop,
-      createElement: _.bind(window.document.createElement, window.document)
-    };
-    var kibe = createKibe(doc, _.merge(cookie, {
-      set: setSpy
-    }));
+    location.reload = reloadSpy;
     kibe('foo');
-    expect(setSpy).to.have.been.calledWithExactly('_kibe', 'foo');
+    expect(cookie.get(COOKIE_KEY)).to.eq('foo');
     expect(reloadSpy).to.have.been.calledOnce;
   });
 });
