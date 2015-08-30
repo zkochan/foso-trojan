@@ -9,12 +9,12 @@ var kibe = require('../lib');
 var cookie = require('easy-cookie');
 var COOKIE_KEY = '_kibe';
 
-describe('Kibe', function() {
+describe('kibe', function() {
   beforeEach(function() {
     cookie.remove(COOKIE_KEY);
   });
 
-  it('Adds link if not already in the DOM', function() {
+  it('adds link if not already in the DOM', function() {
     kibe({
       def: kibe.js('foo', 'http://domain.com/index.js')
     });
@@ -25,7 +25,7 @@ describe('Kibe', function() {
     el.parentNode.removeChild(el);
   });
 
-  it('executes correct mode scripts if mode is present in the cookies', function() {
+  it('uses mode specified in the cookies', function() {
     cookie.set(COOKIE_KEY, 'test');
     var spy = sinon.spy();
     kibe({
@@ -35,7 +35,7 @@ describe('Kibe', function() {
     expect(spy).to.have.been.calledWithExactly('test');
   });
 
-  it('executes default mode scripts if mode not present in the cookies', function() {
+  it('uses default mode if no mode is specified', function() {
     var spy = sinon.spy();
     kibe({
       def: [spy]
@@ -49,5 +49,29 @@ describe('Kibe', function() {
     kibe('foo');
     expect(cookie.get(COOKIE_KEY)).to.eq('foo');
     expect(reloadSpy).to.have.been.calledOnce;
+  });
+
+  describe('js', function() {
+    it('injects script tag to the page if not already present', function() {
+      var src = 'http://example.com/index.js';
+      kibe.js('qar', src)();
+      var el = document.getElementById('qar');
+      expect(el.tagName).to.eq('SCRIPT');
+      expect(el.src).to.eq(src);
+      el.parentNode.removeChild(el);
+    });
+  });
+
+  describe('css', function() {
+    it('injects style tag to the page if not already present', function() {
+      var src = 'http://example.com/index.css';
+      kibe.css('bar', src)();
+      var el = document.getElementById('bar');
+      expect(el.tagName).to.eq('LINK');
+      expect(el.href).to.eq(src);
+      expect(el.rel).to.eq('stylesheet');
+      expect(el.type).to.eq('text/css');
+      el.parentNode.removeChild(el);
+    });
   });
 });
