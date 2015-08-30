@@ -35,10 +35,18 @@ describe('kibe', function() {
     expect(spy).to.have.been.calledWithExactly('test');
   });
 
-  it('uses default mode if no mode is specified', function() {
+  it('uses default mode if no mode is specified and array of functions is passed', function() {
     var spy = sinon.spy();
     kibe({
       def: [spy]
+    });
+    expect(spy).to.have.been.calledWithExactly('def');
+  });
+
+  it('uses default mode if no mode is specified and function is passed', function() {
+    var spy = sinon.spy();
+    kibe({
+      def: spy
     });
     expect(spy).to.have.been.calledWithExactly('def');
   });
