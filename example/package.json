@@ -1,0 +1,17 @@
+{
+  "name": "kibe-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "foo.bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Zoltan Kochan",
+  "license": "MIT",
+  "devDependencies": {
+    "fosify-html": "^0.1.2",
+    "fosify-js": "^0.3.0",
+    "fosify-less": "^0.1.2",
+    "foso": "^0.9.6"
+  }
+}
