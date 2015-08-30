@@ -1,4 +1,4 @@
-#Kibe
+#kibe
 
 A library for switching JavaScript references on the page for easier development/debugging/testing JavaScript files in different environments.
 
@@ -20,12 +20,8 @@ First you have to configure it
 
 ``` js
 kibe({
-  ab: function(mode) {
-    if (mode === 'dev') {
-      return 'http://localhost:1155/index.js';
-    }
-    return '//abdomain.com/foo.js';
-  }
+  def: kibe.js('ab', '//abdomain.com/foo.js'),
+  dev: kibe.js('ab', 'http://localhost:1155/index.js')
 });
 ```
 
