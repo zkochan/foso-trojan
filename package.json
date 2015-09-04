@@ -1,6 +1,6 @@
 {
   "name": "kibe",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A JavaScript snippet aimed to switch JavaScript references on the page for easier development/debugging/testing JavaScript files in different environments.",
   "main": "./lib",
   "scripts": {
