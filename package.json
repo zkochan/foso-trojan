@@ -25,9 +25,9 @@
   "homepage": "https://github.com/zkochan/kibe",
   "devDependencies": {
     "chai": "^3.2.0",
-    "fosify-js": "^0.1.7",
-    "fosify-test": "^0.1.3",
-    "foso": "^0.9.6",
+    "fosify-js": "^0.9.1",
+    "fosify-test": "^0.4.0",
+    "foso": "^0.10.3",
     "gulp": "^3.9.0",
     "sinon": "^1.16.1",
     "sinon-chai": "^2.8.0"
